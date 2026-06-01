@@ -659,6 +659,7 @@ async def main() -> None:
     try:
         async with engine.begin() as conn:
             await conn.execute(text("ALTER TABLE bookings ADD COLUMN IF NOT EXISTS validated_by VARCHAR;"))
+            await conn.execute(text("ALTER TABLE bookings ADD COLUMN IF NOT EXISTS digital_signature VARCHAR;"))
         print("Database migration check completed inside seed.py.")
     except Exception as e:
         print(f"Failed to migrate database inside seed.py: {e}")
