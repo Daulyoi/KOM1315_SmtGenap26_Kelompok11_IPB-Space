@@ -93,29 +93,29 @@
 = Deskripsi Sistem
 
 == Latar Belakang
-IPB University memiliki berbagai fasilitas publik berupa ruang kuliah, laboratorium, auditorium, dan ruang rapat yang tersebar di berbagai fakultas maupun unit kerja pusat. Hingga saat ini, proses peminjaman ruangan dan fasilitas tersebut sering kali dihadapkan pada beberapa kendala operasional, seperti terjadinya konflik jadwal pemesanan ganda (*overlapping booking*), prosedur permohonan yang kurang transparan, tumpukan berkas pendukung fisik, serta tidak adanya *audit log* yang aman untuk melacak aktivitas transaksi pemesanan secara andal.
+IPB University memiliki berbagai fasilitas publik berupa ruang kuliah, laboratorium, auditorium, dan ruang rapat yang tersebar di berbagai fakultas maupun unit kerja pusat. Hingga saat ini, proses peminjaman ruangan dan fasilitas tersebut sering kali dihadapkan pada beberapa kendala operasional, seperti terjadinya konflik jadwal pemesanan ganda (_overlapping booking_), prosedur permohonan yang kurang transparan, tumpukan berkas pendukung fisik, serta tidak adanya _audit log_ yang aman untuk melacak aktivitas transaksi pemesanan secara andal.
 
-Selain kendala operasional, aspek keamanan data juga menjadi tantangan krusial. Sistem informasi peminjaman fasilitas yang ada belum mengimplementasikan mekanisme perlindungan data yang kuat sesuai standar Keamanan Informasi. Transmisi kredensial pengguna, berkas pendukung yang diunggah civitas, serta tiket pemesanan yang diterbitkan rawan terhadap ancaman manipulasi (*tampering*), pencurian sesi (*session hijacking*), dan penyangkalan transaksi (*repudiation*).
+Selain kendala operasional, aspek keamanan data juga menjadi tantangan krusial. Sistem informasi peminjaman fasilitas yang ada belum mengimplementasikan mekanisme perlindungan data yang kuat sesuai standar Keamanan Informasi. Transmisi kredensial pengguna, berkas pendukung yang diunggah civitas, serta tiket pemesanan yang diterbitkan rawan terhadap ancaman manipulasi (_tampering_), pencurian sesi (_session hijacking_), dan penyangkalan transaksi (_repudiation_).
 
-Sebagai solusi inovatif, *IPB Space* dikembangkan sebagai sistem informasi pemesanan fasilitas kampus berbasis web yang aman dengan mengintegrasikan kontrol akses ketat melalui protokol *Authentication, Authorization, dan Accounting* (AAA) serta jaminan integritas data transaksi menggunakan teknik kriptografi asimetris (*Digital Signature*).
+Sebagai solusi inovatif, IPB Space dikembangkan sebagai sistem informasi pemesanan fasilitas kampus berbasis web yang aman dengan mengintegrasikan kontrol akses ketat melalui protokol _Authentication, Authorization, dan Accounting_ (AAA) serta jaminan integritas data transaksi menggunakan teknik kriptografi asimetris (_Digital Signature_).
 
 == Gambaran Sistem
-*IPB Space* menyediakan layanan pemesanan fasilitas secara terpusat untuk civitas akademika IPB (mahasiswa, dosen, dan tenaga kependidikan). Sistem ini memadukan beberapa komponen utama:
-1. *Katalog & Kalender Interaktif*: Memungkinkan seluruh pengguna untuk melihat detail ruangan, aset yang tersedia, dan jadwal pemakaian secara *real-time*.
-2. *Alur Pemesanan dengan Proteksi Dokumen*: Civitas dapat mengajukan pemesanan dengan menentukan waktu, memilih barang tambahan (*extra items*), dan mengunggah dokumen pendukung secara digital.
-3. *Mesin Validasi Konflik Jadwal*: Backend secara otomatis memeriksa tumpang tindih waktu untuk mencegah pemesanan ganda sebelum permohonan diteruskan ke Admin Fasilitas.
-4. *Tiket Digital dengan QR Code Terenkripsi*: Tiket pemesanan yang disetujui dibekali payload QR Code yang ditandatangani menggunakan tanda tangan digital berbasis kunci privat RSA backend.
-5. *Audit Logging Komprehensif*: Setiap peristiwa kritis (registrasi, login, approval, edit data master) dicatat dalam format terstruktur yang aman.
+IPB Space menyediakan layanan pemesanan fasilitas secara terpusat untuk civitas akademika IPB (mahasiswa, dosen, dan tenaga kependidikan). Sistem ini memadukan beberapa komponen utama:
+1. _Katalog & Kalender Interaktif_: Memungkinkan seluruh pengguna untuk melihat detail ruangan, aset yang tersedia, dan jadwal pemakaian secara _real-time_.
+2. _Alur Pemesanan dengan Proteksi Dokumen_: Civitas dapat mengajukan pemesanan dengan menentukan waktu, memilih barang tambahan (_extra items_), dan mengunggah dokumen pendukung secara digital.
+3. _Mesin Validasi Konflik Jadwal_: Backend secara otomatis memeriksa tumpang tindih waktu untuk mencegah pemesanan ganda sebelum permohonan diteruskan ke Admin Fasilitas.
+4. _Tiket Digital dengan QR Code Terenkripsi_: Tiket pemesanan yang disetujui dibekali payload QR Code yang ditandatangani menggunakan tanda tangan digital berbasis kunci privat RSA backend.
+5. _Audit Logging Komprehensif_: Setiap peristiwa kritis (registrasi, login, approval, edit data master) dicatat dalam format terstruktur yang aman.
 
 == Tujuan Sistem
 * Menyediakan media pemesanan fasilitas kampus yang transparan, mudah, dan bebas dari konflik jadwal pemakaian.
 * Melindungi integritas data pemesanan dan berkas civitas dari akses tidak sah.
-* Menjamin keaslian (*authenticity*) tiket digital pemesanan sehingga terhindar dari pemalsuan tiket oleh pihak luar.
-* Menerapkan prinsip *non-repudiation* (anti-penyangkalan) bagi Admin Fasilitas yang menyetujui pemesanan menggunakan tanda tangan digital.
-* Memfasilitasi audit keamanan sistem secara berkala dengan log terstruktur yang andal.*
+* Menjamin keaslian (_authenticity_) tiket digital pemesanan sehingga terhindar dari pemalsuan tiket oleh pihak luar.
+* Menerapkan prinsip _non-repudiation_ (anti-penyangkalan) bagi Admin Fasilitas yang menyetujui pemesanan menggunakan tanda tangan digital.
+* Memfasilitasi audit keamanan sistem secara berkala dengan log terstruktur yang andal.
 
 == Arsitektur Sistem
-Sistem IPB Space dirancang menggunakan arsitektur *client-server* tiga lapisan (*three-tier*) dengan pemisahan peran yang tegas:
+Sistem IPB Space dirancang menggunakan arsitektur _client-server_ tiga lapisan (_three-tier_) dengan pemisahan peran yang tegas:
 
 #table(
   columns: (1.5fr, 2fr, 2.5fr),
@@ -144,13 +144,13 @@ Civitas mengisi formulir pemesanan, menentukan perkiraan jumlah peserta, mengung
 === Manajemen Konflik Jadwal
 Ketika transaksi diajukan, backend FastAPI menjalankan query pencarian irisan waktu secara otomatis:
 $ S < E_"existing" "dan" E > S_"existing" $
-Di mana $S$ dan $E$ adalah waktu mulai (*start*) dan selesai (*end*) pemesanan baru. Jika ditemukan irisan pada hari yang sama untuk ruangan yang sama, pengajuan langsung dicegah secara otomatis.
+Di mana $S$ dan $E$ adalah waktu mulai (_start_) dan selesai (_end_) pemesanan baru. Jika ditemukan irisan pada hari yang sama untuk ruangan yang sama, pengajuan langsung dicegah secara otomatis.
 
 === Tiket Digital & QR Code Validator
-Tiket yang disetujui akan dienkode menjadi payload JSON berisi data identitas pemesanan, id ruangan, dan nama civitas. Payload tersebut ditandatangani secara kriptografis menggunakan kunci privat RSA server backend, menghasilkan *Digital Signature*. QR Code diterbitkan dari gabungan payload dan signature ini. Di lapangan, petugas fasilitas memindai QR Code tersebut dan backend akan memvalidasi keaslian tanda tangan menggunakan kunci publik RSA server.
+Tiket yang disetujui akan dienkode menjadi payload JSON berisi data identitas pemesanan, id ruangan, dan nama civitas. Payload tersebut ditandatangani secara kriptografis menggunakan kunci privat RSA server backend, menghasilkan _Digital Signature_. QR Code diterbitkan dari gabungan payload dan signature ini. Di lapangan, petugas fasilitas memindai QR Code tersebut dan backend akan memvalidasi keaslian tanda tangan menggunakan kunci publik RSA server.
 
 === Audit Logging
-Setiap aksi pengubahan status pemesanan, penghapusan fasilitas, perubahan stok barang ekstra, dan aktivitas login mencatat identitas pelaku (*user ID*), waktu (*timestamp*), alamat IP (*IP Address*), dan jenis aktivitas (*event category*).
+Setiap aksi pengubahan status pemesanan, penghapusan fasilitas, perubahan stok barang ekstra, dan aktivitas login mencatat identitas pelaku (_user ID_), waktu (_timestamp_), alamat IP (_IP Address_), dan jenis aktivitas (_event category_).
 
 #pagebreak()
 
@@ -175,7 +175,7 @@ Aset data dinilai berdasarkan dampaknya terhadap privasi civitas akademika dan k
 )
 
 == Aset Layanan (API Endpoint)
-Endpoint layanan diklasifikasikan berdasarkan peran yang diperbolehkan mengaksesnya untuk menghindari kerentanan *Broken Object Level Authorization* (BOLA) dan *Broken Function Level Authorization* (BFLA).
+Endpoint layanan diklasifikasikan berdasarkan peran yang diperbolehkan mengaksesnya untuk menghindari kerentanan _Broken Object Level Authorization_ (BOLA) dan _Broken Function Level Authorization_ (BFLA).
 
 #table(
   columns: (2.5fr, 1fr, 3.5fr),
@@ -213,9 +213,9 @@ Aset fisik dan server runtime yang mendukung ketersediaan operasional sistem IPB
 == Model Kepercayaan dan Batas Akses
 === Zona Kepercayaan
 Sistem IPB Space mendefinisikan tiga zona kepercayaan:
-1. *Zona Publik*: Pengguna luar/tamu yang belum terautentikasi. Hanya dapat mengakses katalog publik dan melakukan request login.
-2. *Zona Terautentikasi (JWT)*: Pengguna terautentikasi (Civitas, Manager Fasilitas, Super Admin). Akses dibatasi menggunakan skema *Role-Based Access Control* (RBAC) pada API route backend.
-3. *Zona Internal*: Area komunikasi eksklusif antara backend FastAPI dan database PostgreSQL melalui koneksi TCP yang aman dan terisolasi.
+1. _Zona Publik_: Pengguna luar/tamu yang belum terautentikasi. Hanya dapat mengakses katalog publik dan melakukan request login.
+2. _Zona Terautentikasi (JWT)_: Pengguna terautentikasi (Civitas, Manager Fasilitas, Super Admin). Akses dibatasi menggunakan skema _Role-Based Access Control_ (RBAC) pada API route backend.
+3. _Zona Internal_: Area komunikasi eksklusif antara backend FastAPI dan database PostgreSQL melalui koneksi TCP yang aman dan terisolasi.
 
 === Matriks Peran dan Akses
 Berikut merupakan pembagian hak akses fitur bagi masing-masing peran dalam sistem IPB Space:
@@ -253,7 +253,7 @@ Untuk menjamin keamanan penulisan kode, validasi input, serta implementasi kript
   [fastapi], [0.128.0], [Framework REST API utama, mendukung dependency injection untuk otorisasi.],
   [sqlalchemy], [2.0.46], [ORM relasional aman, mencegah serangan SQL Injection secara bawaan.],
   [alembic], [1.18.3], [Manajemen migrasi skema database relasional secara terversi.],
-  [pydantic], [2.12.5], [Validasi input data terikat (*strict type validation*) dan sanitasi data request.],
+  [pydantic], [2.12.5], [Validasi input data terikat (_strict type validation_) dan sanitasi data request.],
   [bcrypt], [5.0.0], [Hashing password satu arah menggunakan algoritma Blowfish Crypt untuk storage user.],
   [PyJWT], [2.10.1], [Penerbitan dan pemetaan token JWT untuk pertukaran data otorisasi yang aman.],
   [cryptography], [46.0.4], [Implementasi algoritma RSA asimetris untuk digital signature tiket pemesanan.],
@@ -279,17 +279,17 @@ Frontend React 19 yang dibundel menggunakan Vite 7 dirancang untuk menyajikan da
 
 == Mekanisme Keamanan Utama
 === Hashing Kredensial (Bcrypt)
-Untuk mencegah kebocoran password civitas apabila database terekspos, password disimpan dalam format hash menggunakan algoritma **Bcrypt** dengan penambahan *salt* acak secara dinamis.
+Untuk mencegah kebocoran password civitas apabila database terekspos, password disimpan dalam format hash menggunakan algoritma _Bcrypt_ dengan penambahan _salt_ acak secara dinamis.
 $ H = "Bcrypt"(P_"raw", "salt") $
 
 === Otentikasi & Otorisasi Sesi (JWT & LocalStorage dengan Axios Interceptor)
-Otorisasi sesi di sisi klien diimplementasikan menggunakan arsitektur JSON Web Token (JWT). Token akses (*access_token*) dan token penyegar (*refresh_token*) disimpan dalam *LocalStorage* sisi browser. Untuk mengirimkan data identitas pada setiap permintaan API ke backend, frontend menggunakan *Axios Interceptors* yang secara otomatis menyematkan token JWT ke dalam header `Authorization: Bearer <token>`. Jika token akses kedaluwarsa, *Axios Interceptor* akan mendeteksi respons `401 Unauthorized` dan secara otomatis melakukan request pembaruan token menggunakan *refresh_token* tanpa menginterupsi interaksi pengguna.
+Otorisasi sesi di sisi klien diimplementasikan menggunakan arsitektur JSON Web Token (JWT). Token akses (_access_token_) dan token penyegar (_refresh_token_) disimpan dalam _LocalStorage_ sisi browser. Untuk mengirimkan data identitas pada setiap permintaan API ke backend, frontend menggunakan _Axios Interceptors_ yang secara otomatis menyematkan token JWT ke dalam header `Authorization: Bearer <token>`. Jika token akses kedaluwarsa, _Axios Interceptor_ akan mendeteksi respons `401 Unauthorized` dan secara otomatis melakukan request pembaruan token menggunakan _refresh_token_ tanpa menginterupsi interaksi pengguna.
 
 === Integritas & Non-Repudiasi Tiket (RSA-SHA256 Digital Signature)
 Ketika pemesanan disetujui, data tiket diformat dalam string JSON terurut:
 $ T = { "id": "B-001", "room": "RK-U1-01", "user": "civitas\@ipbspace.com", "date": "2026-06-03" } $
-Backend memproses string tersebut dengan fungsi hash SHA-256, kemudian mengenkripsinya menggunakan Kunci Privat RSA milik server backend untuk menghasilkan **Tanda Tangan Digital**:
+Backend memproses string tersebut dengan fungsi hash SHA-256, kemudian mengenkripsinya menggunakan Kunci Privat RSA milik server backend untuk menghasilkan _Digital Signature_:
 $ S = E_(K_"private")("SHA-256"(T)) $
 Tanda tangan $S$ ini disimpan dalam database di kolom `digital_signature` dan disertakan dalam QR Code tiket. Saat dilakukan pemindaian check-in, sistem akan mendekripsi $S$ menggunakan Kunci Publik RSA server:
 $ D = D_(K_"public")(S) $
-Jika hasil dekripsi $D$ cocok dengan nilai $hash$ SHA-256 dari data tiket aktual, maka tiket dinyatakan **SAH** dan tidak mengalami manipulasi (*integrity guaranteed*), serta dipastikan diterbitkan oleh Manager Fasilitas yang sah (*non-repudiation guaranteed*).
+Jika hasil dekripsi $D$ cocok dengan nilai _hash_ SHA-256 dari data tiket aktual, maka tiket dinyatakan SAH dan tidak mengalami manipulasi (_integrity guaranteed_), serta dipastikan diterbitkan oleh Manager Fasilitas yang sah (_non-repudiation guaranteed_).
