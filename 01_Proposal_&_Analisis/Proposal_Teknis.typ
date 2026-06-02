@@ -1,89 +1,18 @@
-#set page(
-  paper: "a4",
-  margin: (x: 2.5cm, top: 3cm, bottom: 2.5cm),
-  header: context {
-    if here().page() > 1 {
-      align(right, text(8pt, fill: luma(120), style: "italic")[PROPOSAL TEKNIS: IPB SPACE])
-    }
-  },
-  footer: context {
-    if here().page() > 1 {
-      let page_number = counter(page).get().first()
-      let total_pages = counter(page).final().first()
-      align(center, text(9pt, fill: luma(100))[Halaman #page_number dari #total_pages])
-    }
-  }
-)
+#import "template.typ": project
 
-#set text(
-  font: "Liberation Sans",
-  size: 11pt,
-  lang: "id"
-)
-
-#set par(justify: true, leading: 0.65em)
-
-// Styling Heading
-#show heading: set text(fill: black)
-#show heading.where(level: 1): it => {
-  pagebreak(weak: true)
-  v(1cm)
-  align(center, text(14pt, weight: "bold")[#it.body])
-  v(0.5cm)
-}
-#show heading.where(level: 2): it => {
-  v(0.5cm)
-  text(12pt, weight: "bold")[#it.body]
-  v(0.2cm)
-}
-#show heading.where(level: 3): it => {
-  v(0.3cm)
-  text(11pt, weight: "bold", style: "italic")[#it.body]
-  v(0.1cm)
-}
-
-// --- HALAMAN SAMPUL ---
-#align(center)[
-  #v(2cm)
-  #text(18pt, weight: "bold", fill: black)[PROPOSAL TEKNIS]
-  
-  #v(0.5cm)
-  #text(16pt, weight: "bold")[IPB SPACE]
-  
-  #v(0.3cm)
-  #text(12pt, style: "italic", fill: luma(80))[Sistem Informasi Aman dengan Implementasi Kriptografi & Protokol AAA]
-  
-  #v(1.5cm)
-  #rect(width: 80%, height: 0.5mm, fill: luma(80))
-  
-  #v(1.5cm)
-  #text(11pt)[
-    *Mata Kuliah Keamanan Informasi (KOM1315)*\
-    Semester Genap 2026
-  ]
-  
-  #v(2.5cm)
-  #text(11pt)[*Disusun oleh (Kelompok 11):*]
-  #v(0.2cm)
-  #table(
-    columns: (1fr, 1fr),
-    align: (left, center),
-    stroke: none,
-    [Daffa Aulia Musyaffa Subyantoro], [G6401231028],
-    [Hakim Ilyas Azhar], [G6401231077],
-    [Kivi Adelio], [G6401231047],
+#show: project.with(
+  title: "PROPOSAL TEKNIS",
+  subtitle: "Sistem Informasi Aman dengan Implementasi Kriptografi & Protokol AAA",
+  course: "Mata Kuliah Keamanan Informasi (KOM1315)",
+  semester: "Semester Genap 2026",
+  institution: "FAKULTAS MATEMATIKA DAN ILMU PENGETAHUAN ALAM\nIPB UNIVERSITY",
+  department: "DEPARTEMEN ILMU KOMPUTER",
+  authors: (
+    (name: "Daffa Aulia Musyaffa Subyantoro", nim: "G6401231028"),
+    (name: "Hakim Ilyas Azhar", nim: "G6401231077"),
+    (name: "Kivi Adelio", nim: "G6401231047"),
   )
-  
-  #v(3cm)
-  #text(12pt, weight: "bold")[DEPARTEMEN ILMU KOMPUTER]
-  #text(11pt)[
-    FAKULTAS MATEMATIKA DAN ILMU PENGETAHUAN ALAM\
-    IPB UNIVERSITY\
-    2026
-  ]
-]
-
-#pagebreak()
+)
 
 // --- DAFTAR ISI ---
 #outline(indent: 1.5em, depth: 3)
@@ -108,10 +37,10 @@ IPB Space menyediakan layanan pemesanan fasilitas secara terpusat untuk civitas 
 5. _Audit Logging Komprehensif_: Setiap peristiwa kritis (registrasi, login, approval, edit data master) dicatat dalam format terstruktur yang aman.
 
 == Tujuan Sistem
-* Menyediakan media pemesanan fasilitas kampus yang transparan, mudah, dan bebas dari konflik jadwal pemakaian.
-* Melindungi integritas data pemesanan dan berkas civitas dari akses tidak sah.
-* Menjamin keaslian (_authenticity_) tiket digital pemesanan sehingga terhindar dari pemalsuan tiket oleh pihak luar.
-* Menerapkan prinsip _non-repudiation_ (anti-penyangkalan) bagi Admin Fasilitas yang menyetujui pemesanan menggunakan tanda tangan digital.
+Menyediakan media pemesanan fasilitas kampus yang transparan, mudah, dan bebas dari konflik jadwal pemakaian.
+Melindungi integritas data pemesanan dan berkas civitas dari akses tidak sah.
+Menjamin keaslian (_authenticity_) tiket digital pemesanan sehingga terhindar dari pemalsuan tiket oleh pihak luar.
+Menerapkan prinsip _non-repudiation_ (anti-penyangkalan) bagi Admin Fasilitas yang menyetujui pemesanan menggunakan tanda tangan digital.*
 * Memfasilitasi audit keamanan sistem secara berkala dengan log terstruktur yang andal.
 
 == Arsitektur Sistem
