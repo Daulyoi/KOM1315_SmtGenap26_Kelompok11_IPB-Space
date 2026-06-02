@@ -123,7 +123,7 @@ Sistem IPB Space dirancang menggunakan arsitektur *client-server* tiga lapisan (
   align: (left, left, left),
   stroke: (x, y) => (left: none, right: none, top: 0.5pt + luma(120), bottom: 0.5pt + luma(120)),
   [*Lapisan*], [*Teknologi*], [*Keterangan*],
-  [Frontend], [Next.js 15, React 19, Tailwind CSS], [Antarmuka civitas, admin, dan super admin. Mengelola state sesi melalui HttpOnly cookies.],
+  [Frontend], [React 19 (Vite 7), Tailwind CSS v3], [Antarmuka civitas, admin, dan super admin. Mengelola otorisasi dan token JWT secara aman menggunakan LocalStorage dan Axios Interceptors.],
   [Backend], [FastAPI (Python 3.10), Uvicorn], [Penyedia REST API utama, menangani logika bisnis, validasi konflik, otorisasi peran, dan audit logging.],
   [Database], [PostgreSQL], [Penyimpanan data persisten pengguna, data ruang, booking, aset, ekstra barang, dan log audit.],
   [Autentikasi], [JWT (JSON Web Token), Bcrypt], [Protokol AAA: hashing password civitas dengan Bcrypt, transfer token JWT sebagai otorisasi peran.],
@@ -203,7 +203,7 @@ Aset fisik dan server runtime yang mendukung ketersediaan operasional sistem IPB
   stroke: (x, y) => (left: none, right: none, top: 0.5pt + luma(120), bottom: 0.5pt + luma(120)),
   [*Komponen*], [*Deskripsi*], [*Nilai*],
   [Server FastAPI], [Runtime ASGI (Uvicorn) pengeksekusi kode logika bisnis backend.], [Kritis],
-  [Server Next.js], [Runtime Node.js untuk rendering antarmuka pengguna frontend.], [Tinggi],
+  [Frontend Host], [Platform static hosting (Vercel/Vite Dev Server) untuk menyajikan berkas frontend.], [Tinggi],
   [Database PostgreSQL], [Penyimpanan data relasional transaksi pemesanan dan log audit.], [Kritis],
   [JWT Secret Key], [Kunci rahasia untuk menandatangani token akses JWT.], [Kritis],
   [Kunci Privat RSA], [Kunci privat asimetris backend untuk menandatangani QR Code tiket.], [Kritis],
@@ -260,8 +260,8 @@ Untuk menjamin keamanan penulisan kode, validasi input, serta implementasi kript
   [structlog], [Lest], [Logging terstruktur berkinerja tinggi untuk kebutuhan log audit sistem.],
 )
 
-== Dependensi Frontend (Next.js)
-Frontend Next.js dirancang untuk menyajikan data secara dinamis serta mengelola interaksi pengguna dengan mengutamakan aspek keamanan sisi klien.
+== Dependensi Frontend (React / Vite)
+Frontend React 19 yang dibundel menggunakan Vite 7 dirancang untuk menyajikan data secara dinamis, mengelola interaksi pengguna, dan menerapkan kontrol keamanan sisi klien.
 
 #table(
   columns: (2fr, 1.2fr, 2.8fr),
@@ -269,9 +269,12 @@ Frontend Next.js dirancang untuk menyajikan data secara dinamis serta mengelola 
   align: (left, center, left),
   stroke: (x, y) => (left: none, right: none, top: 0.5pt + luma(120), bottom: 0.5pt + luma(120)),
   [*Paket Frontend*], [*Versi*], [*Peran / Fungsi Keamanan*],
-  [next], [15.5.2], [Framework React full-stack dengan Server-Side Rendering (SSR) untuk proteksi route.],
-  [react], [19.1.0], [Perpustakaan UI komponen utama.],
-  [tailwindcss], [^4.0.0], [Utility-first CSS untuk visualisasi antarmuka premium.],
+  [react], [^19.2.0], [Perpustakaan UI komponen utama untuk menyajikan data secara reaktif.],
+  [react-router-dom], [^7.13.0], [Pengelolaan client-side routing dan proteksi akses per peran (RBAC).],
+  [axios], [^1.13.4], [Klien HTTP dengan interceptor untuk secara otomatis menyematkan token JWT dalam Authorization header.],
+  [react-qr-code], [^2.0.21], [Generator QR Code sisi klien untuk memvisualisasikan tiket digital yang disetujui.],
+  [html-to-image], [^1.11.13], [Utilitas untuk mengonversi komponen tiket digital menjadi gambar PNG agar dapat diunduh civitas.],
+  [tailwindcss], [^3.4.17], [Utility-first CSS framework untuk penyusunan antarmuka minimalis.],
 )
 
 == Mekanisme Keamanan Utama
@@ -279,8 +282,8 @@ Frontend Next.js dirancang untuk menyajikan data secara dinamis serta mengelola 
 Untuk mencegah kebocoran password civitas apabila database terekspos, password disimpan dalam format hash menggunakan algoritma **Bcrypt** dengan penambahan *salt* acak secara dinamis.
 $ H = "Bcrypt"(P_"raw", "salt") $
 
-=== Otentikasi & Otorisasi Sesi (JWT & HttpOnly Cookie)
-Token JWT ditandatangani menggunakan algoritma simetris `HS256` dengan kunci `JWT_SECRET` yang kuat. Untuk mencegah serangan *Cross-Site Scripting* (XSS), token ini tidak disimpan dalam LocalStorage sisi klien, melainkan dikirim ke browser menggunakan header `Set-Cookie` dengan flag `HttpOnly`, `Secure`, dan `SameSite=Strict`.
+=== Otentikasi & Otorisasi Sesi (JWT & LocalStorage dengan Axios Interceptor)
+Otorisasi sesi di sisi klien diimplementasikan menggunakan arsitektur JSON Web Token (JWT). Token akses (*access_token*) dan token penyegar (*refresh_token*) disimpan dalam *LocalStorage* sisi browser. Untuk mengirimkan data identitas pada setiap permintaan API ke backend, frontend menggunakan *Axios Interceptors* yang secara otomatis menyematkan token JWT ke dalam header `Authorization: Bearer <token>`. Jika token akses kedaluwarsa, *Axios Interceptor* akan mendeteksi respons `401 Unauthorized` dan secara otomatis melakukan request pembaruan token menggunakan *refresh_token* tanpa menginterupsi interaksi pengguna.
 
 === Integritas & Non-Repudiasi Tiket (RSA-SHA256 Digital Signature)
 Ketika pemesanan disetujui, data tiket diformat dalam string JSON terurut:
