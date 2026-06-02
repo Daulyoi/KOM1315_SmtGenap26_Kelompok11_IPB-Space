@@ -86,8 +86,8 @@
     )
     
     #v(3cm)
-    #text(12pt, weight: "bold")[#department]
-    #text(11pt)[
+    #text(12pt, weight: "bold")[#department]\
+    #text(11pt, weight: "bold")[
       #institution\
       2026
     ]
